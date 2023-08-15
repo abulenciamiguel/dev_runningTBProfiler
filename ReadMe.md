@@ -54,7 +54,6 @@ cd ~/raw/tb_batch69/no_sample/fastq_pass
 find $(pwd)/*.fastq > path.txt
 ```
 
-
 Combine both files column-wise with tab as the delimiter
 ```
 cd ~/raw/tb_batch69/no_sample/fastq_pass
@@ -67,6 +66,13 @@ Change the delimiter to comma
 cd ~/raw/tb_batch69/no_sample/fastq_pass
 
 sed -i 's/\t/,/g' sample_sheet.csv
+```
+
+Add non-negotiable headers (i.e., `id,read1`) to the `sample_sheet.csv` </br>
+```
+cd ~/raw/tb_batch69/no_sample/fastq_pass
+
+nano sample_sheet.csv
 ```
 
 
