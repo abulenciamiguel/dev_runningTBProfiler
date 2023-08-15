@@ -77,4 +77,9 @@ nano sample_sheet.csv
 
 
 ## 5.   Running
+
+
 ## 6.   Result transfer
+
+
+# How to run TBProfiler: Illumina?
