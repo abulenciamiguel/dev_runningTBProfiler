@@ -1,4 +1,4 @@
-# How to run TBProfiler: ONT?
+# How to run TBProfiler?
 
 ## 1.   Data transfer
 After sequencing, copy the raw files from the local workstation to HPC. </br>
@@ -10,7 +10,7 @@ rsync -aPvz /mnt/d/tb_batch69 -e 'ssh -p 1945' ufuomababatunde@192.420.69:~/raw/
 ```
 
 
-## 2.   Decompression
+## 2.   Decompression (skip if Illumina)
 Access the HPC
 ```
 ssh -p 1945 ufuomababatunde@192.420.69
@@ -29,7 +29,7 @@ unzip */*
 ```
 
 
-## 3.   Combining *fastq*
+## 3.   Combining *fastq*  (skip if Illumina)
 Each barcode corresponds to a sample. </br>
 Combine all `fastq` files of a sample into one. </br>
 Assume that `Barcode69` corresponds to `TV_5` sample.
@@ -42,7 +42,8 @@ cat Barcode69/*fastq > TV_5.fastq
 
 
 ## 4.   Sample sheet preparation
-To save filenames as ID, you can use sed to remove file types.
+### For ONT
+####    To save filenames as ID, you can use `sed` to remove file types.
 
 ```
 cd ~/tb_batch69/raw
@@ -52,34 +53,81 @@ ls *.fastq > ID.txt
 sed -i 's/.fastq//g' ID.txt
 ```
 
-To save the paths
+####    To save the paths
 ```
 cd ~/tb_batch69/raw
 
 find $(pwd)/*.fastq > path.txt
 ```
 
-Combine both files column-wise with tab as the delimiter
+####    Combine both files column-wise with tab as the delimiter
 ```
 cd ~/tb_batch69/raw
 
 paste ID.txt path.txt > sample_sheet.csv
 ```
 
-Change the delimiter to comma
+####    Change the delimiter to comma
 ```
 cd ~/tb_batch69/raw
 
 sed -i 's/\t/,/g' sample_sheet.csv
 ```
 
-Add non-negotiable headers (i.e., `id,read1`) to the `sample_sheet.csv` </br>
+####    Add non-negotiable headers (i.e., `id,read1`) to the `sample_sheet.csv` </br>
 ```
 cd ~/tb_batch69/raw
 
 nano sample_sheet.csv
 ```
 
+### For Illumina
+####    To save filenames as ID, you can use sed to remove file types.
+
+```
+cd ~/tb_batch69/raw
+
+ls *.fastq > ID.txt
+
+sed -i 's/.fastq//g' ID.txt
+```
+
+####    To save the paths of the `forward` reads. </br>
+Take note of the pattern. It could be `R1_001.fastq.gz` or `1.fastq`
+```
+cd ~/tb_batch69/raw
+
+find $(pwd)/*R1.fastq > path1.txt
+```
+
+####    To save the paths of the `reverse` reads. </br>
+Take note of the pattern. It could be `R2_001.fastq.gz` or `2.fastq`
+```
+cd ~/tb_batch69/raw
+
+find $(pwd)/*R2.fastq > path2.txt
+```
+
+####    Combine both files column-wise with tab as the delimiter
+```
+cd ~/tb_batch69/raw
+
+paste ID.txt path1.txt path2.txt > sample_sheet.csv
+```
+
+####    Change the delimiter to comma
+```
+cd ~/tb_batch69/raw
+
+sed -i 's/\t/,/g' sample_sheet.csv
+```
+
+####    Add non-negotiable headers (i.e., `id,read1,read2`) to the `sample_sheet.csv` </br>
+```
+cd ~/tb_batch69/raw
+
+nano sample_sheet.csv
+```
 
 ## 5.   Running and Collating results
 ```
@@ -121,4 +169,4 @@ Assume that you will be copying the results in the `C:\tbresults`
 rsync -aPvz ufuomababatunde@192.420.69:~/tb_batch69 -e 'ssh -p 1945' /mnt/c/tbresults
 ```
 
-# How to run TBProfiler: Illumina?
+
