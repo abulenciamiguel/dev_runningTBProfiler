@@ -16,13 +16,13 @@ Access the HPC
 ssh -p 1945 ufuomababatunde@192.420.69
 ```
 
-Assume that the fastq files are located in `~/tb_batch69` as shown below. </br>
+Assume that the fastq files are located in `~/tb_ont_FEB292023_batch69` as shown below. </br>
 <img src="https://github.com/abulenciamiguel/dev_runningTBProfiler/blob/main/assets/tbprofiler_1.jpg" width="500"> </br>
 Create a new directory where the raw files will be copied into
 ```
 mkdir -p ~/tb_batch69/raw
 
-cp ~/tb_batch69/no_sample/somethinggibberish/fastq_pass/* ~/tb_batch69/raw
+cp ~/tb_ont_FEB292023_batch69/no_sample/somethinggibberish/fastq_pass/* ~/tb_batch69/raw
 
 cd ~/tb_batch69/raw
 
