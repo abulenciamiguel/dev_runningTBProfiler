@@ -119,7 +119,7 @@ tb-profiler collate
 ```
 
 
-## 6.   Check coverage and add headers
+## 7.   Check coverage and add headers
 ```
 mkdir -p ~/tb_batch69/output/coverage
 
@@ -139,7 +139,7 @@ sed -i '1 i\#rname\tstartpos\tendpos\tnumreads\tcovbases\tcoverage\tmeandepth\tm
 ```
 
 
-## 7.   Result transfer
+## 8.   Result transfer
 Open another terminal. </br>
 Assume that you will be copying the results in the `C:\tbresults`
 ```
