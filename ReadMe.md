@@ -2,8 +2,8 @@
 
 ## 1.   Data transfer
 After sequencing, copy the raw files from the local workstation to HPC. </br>
--   Assume that the raw files in the local workstation are located in `C:\data\tb_batch69`
--   Assume that the raw files will be transferred to HPC's `~/raw` directory
+-   Assume that the raw files in the local workstation are located in `C:\data\tb_ont_FEB292023_batch69`
+-   Assume that the raw files will be transferred to HPC's `~/` directory
 -   Open an ubuntu terminal
 ```
 rsync -aPvz /mnt/d/tb_batch69 -e 'ssh -p 1945' ufuomababatunde@192.420.69:~/raw/
