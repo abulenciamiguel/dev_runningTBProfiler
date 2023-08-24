@@ -60,7 +60,7 @@ sed -i 's/.fastq//g' ID.txt
 
 ### For Illumina
 ####    To save filenames as ID, you can use sed to remove file types.
-####    Assume that `_L001_R1_001.fastq.gz` is the pattern for the forward reads.
+Assume that `_L001_R1_001.fastq.gz` is the pattern for the forward reads.
 
 ```
 cd ~/tb_batch69/raw
