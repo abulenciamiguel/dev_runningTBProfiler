@@ -6,7 +6,7 @@ After sequencing, copy the raw files from the local workstation to HPC. </br>
 -   Assume that the raw files will be transferred to HPC's `~/` directory
 -   Open an ubuntu terminal
 ```
-rsync -aPvz /mnt/d/tb_batch69 -e 'ssh -p 1945' ufuomababatunde@192.420.69:~/raw/
+rsync -aPvz /mnt/c/data/tb_ont_FEB292023_batch69 -e 'ssh -p 1945' ufuomababatunde@192.420.69:~/
 ```
 
 
