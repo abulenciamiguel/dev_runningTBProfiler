@@ -20,7 +20,8 @@ Assume that the fastq files are located in `~/tb_ont_FEB292023_batch69` as shown
 <img src="https://github.com/abulenciamiguel/dev_runningTBProfiler/blob/main/assets/tbprofiler_1.jpg" width="500"> </br>
 
 </br>
-Create a new directory where the raw files will be copied into </br>
+
+Create a new directory where the raw files will be copied into
 ```
 mkdir -p ~/tb_batch69/raw
 
