@@ -18,6 +18,8 @@ ssh -p 1945 ufuomababatunde@192.420.69
 
 Assume that the fastq files are located in `~/tb_ont_FEB292023_batch69` as shown below. </br>
 <img src="https://github.com/abulenciamiguel/dev_runningTBProfiler/blob/main/assets/tbprofiler_1.jpg" width="500"> </br>
+
+</br>
 Create a new directory where the raw files will be copied into
 ```
 mkdir -p ~/tb_batch69/raw
