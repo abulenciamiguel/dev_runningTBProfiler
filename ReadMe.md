@@ -16,16 +16,16 @@ Access the HPC
 ssh -p 1945 ufuomababatunde@192.420.69
 ```
 
-Assume that the fastq files are located in `~/raw/tb_batch69/no_sample/fastq_pass`. </br>
+Assume that the fastq files are located in `~/tb_batch69` as shown below. </br>
 Create a new directory where the raw files will be copied into
 ```
 mkdir -p ~/tb_batch69/raw
 
-cp ~/raw/tb_batch69/no_sample/fastq_pass/* ~/tb_batch69/raw
+cp ~/tb_batch69/no_sample/somethinggibberish/fastq_pass/* ~/tb_batch69/raw
 
 cd ~/tb_batch69/raw
 
-unzip */*
+gunzip */*
 ```
 
 
@@ -53,91 +53,63 @@ ls *.fastq > ID.txt
 sed -i 's/.fastq//g' ID.txt
 ```
 
-####    To save the paths
-```
-cd ~/tb_batch69/raw
-
-find $(pwd)/*.fastq > path.txt
-```
-
-####    Combine both files column-wise with tab as the delimiter
-```
-cd ~/tb_batch69/raw
-
-paste ID.txt path.txt > sample_sheet.csv
-```
-
-####    Change the delimiter to comma
-```
-cd ~/tb_batch69/raw
-
-sed -i 's/\t/,/g' sample_sheet.csv
-```
-
-####    Add non-negotiable headers (i.e., `id,read1`) to the `sample_sheet.csv` </br>
-```
-cd ~/tb_batch69/raw
-
-nano sample_sheet.csv
-```
 
 ### For Illumina
 ####    To save filenames as ID, you can use sed to remove file types.
+####    Assume that `_L001_R1_001.fastq.gz` is the pattern for the forward reads.
 
 ```
 cd ~/tb_batch69/raw
 
-ls *.fastq > ID.txt
+ls *_L001_R1_001.fastq.gz > ID.txt
 
-sed -i 's/.fastq//g' ID.txt
+sed -i 's/_L001_R1_001.fastq.gz//g' ID.txt
 ```
 
-####    To save the paths of the `forward` reads. </br>
-Take note of the pattern. It could be `R1_001.fastq.gz` or `1.fastq`
-```
-cd ~/tb_batch69/raw
-
-find $(pwd)/*R1.fastq > path1.txt
-```
-
-####    To save the paths of the `reverse` reads. </br>
-Take note of the pattern. It could be `R2_001.fastq.gz` or `2.fastq`
-```
-cd ~/tb_batch69/raw
-
-find $(pwd)/*R2.fastq > path2.txt
-```
-
-####    Combine both files column-wise with tab as the delimiter
-```
-cd ~/tb_batch69/raw
-
-paste ID.txt path1.txt path2.txt > sample_sheet.csv
-```
-
-####    Change the delimiter to comma
-```
-cd ~/tb_batch69/raw
-
-sed -i 's/\t/,/g' sample_sheet.csv
-```
-
-####    Add non-negotiable headers (i.e., `id,read1,read2`) to the `sample_sheet.csv` </br>
-```
-cd ~/tb_batch69/raw
-
-nano sample_sheet.csv
-```
-
-## 5.   Running and Collating results
+## 5.   Running TBProfiler
+### For ONT
 ```
 conda activate tbprofiler_env
 
 cd ~/tb_batch69
+```
 
-tb-profiler batch --csv raw/sample_sheet.csv --dir output
+``` bash
+while read line
+do
+    tb-profiler profile \
+    --platform nanopore \
+    -t 4 \
+    -1 raw/${line}.fastq \
+    -p $line \
+    --dir output
+done < raw/ID.txt
+```
 
-cd output
+### For Illumina
+```
+conda activate tbprofiler_env
+
+cd ~/tb_batch69
+```
+
+``` bash
+while read line
+do
+    tb-profiler profile \
+    -t 4 \
+    -1 raw/${line}_L001_R1_001.fastq.gz \
+    -2 raw/${line}_L001_R2_001.fastq.gz \
+    -p $line \
+    --dir output
+done < raw/ID.txt
+```
+
+## 6. Collating results
+```
+conda activate tbprofiler_env
+
+cd ~/tb_batch69
 
 tb-profiler collate
 ```
@@ -148,8 +120,9 @@ tb-profiler collate
 mkdir -p ~/tb_batch69/output/coverage
 
 cd ~/tb_batch69/output
+```
 
-
+``` bash
 while read sample
 do
 samtools coverage -H bam/${sample}.bam > coverage/${sample}.coverage.tsv
