@@ -71,9 +71,12 @@ sed -i 's/_L001_R1_001.fastq.gz//g' ID.txt
 ```
 
 ## 5.   Running TBProfiler
+>[!IMPORTANT]
+> Use TBProfiler v4.4.2
+
 ### For ONT
 ```
-conda activate tbprofiler_env
+conda activate tb_env
 
 cd ~/tb_batch69
 ```
