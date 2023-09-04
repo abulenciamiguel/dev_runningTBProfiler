@@ -129,7 +129,13 @@ cd ~/tb_batch69/output
 ``` bash
 while read sample
 do
+
+echo Calculating coverage of ${sample}
+
 samtools coverage -H bam/${sample}.bam > coverage/${sample}.coverage.tsv
+
+sed -i "s/Chromosome/${sample}/g" coverage/${sample}.coverage.tsv
+
 done < ~/tb_batch69/raw/ID.txt
 
 
