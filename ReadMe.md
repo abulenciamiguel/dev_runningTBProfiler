@@ -95,7 +95,7 @@ done < raw/ID.txt
 
 ### For Illumina
 ```
-conda activate tbprofiler_env
+conda activate tb_env
 
 cd ~/tb_batch69
 ```
@@ -114,9 +114,9 @@ done < raw/ID.txt
 
 ## 6. Collating results
 ```
-conda activate tbprofiler_env
+conda activate tb_env
 
-cd ~/tb_batch69
+cd ~/tb_batch69/output
 
 tb-profiler collate
 ```
@@ -128,6 +128,9 @@ mkdir -p ~/tb_batch69/output/coverage
 
 cd ~/tb_batch69/output
 ```
+
+A very <span style='color: red;'>long</span> sentence.
+
 
 ``` bash
 while read sample
