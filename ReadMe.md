@@ -129,8 +129,6 @@ mkdir -p ~/tb_batch69/output/coverage
 cd ~/tb_batch69/output
 ```
 
-A very <span style='color: red;'>long</span> sentence.
-
 
 ``` bash
 while read sample
